@@ -1,6 +1,7 @@
 package com.app.pages;
 
 import com.app.MainView;
+import com.app.components.Forecast;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -19,11 +20,24 @@ import com.app.AppNavLayout;
 @Route(value = "page", layout = MainView.class)
 @PageTitle("Page")
 public class Page extends AppNavLayout {
+    Forecast forecast;
 
     public Page() {
         VerticalLayout main = new VerticalLayout();
+        this.forecast = new Forecast();
 
-        main.add(new H1("Other page"), new Paragraph("Page content"));
+        main.add(new H1("Other page"));
+
+        main.add(new Button("Change forecast", e -> {
+            if (this.forecast.isIncreasing()) {
+                this.forecast.setDecreasing();
+            } else {
+                this.forecast.setIncreasing();
+            }
+        }));
+
+        main.add(this.forecast);
+
         setContent(main);
     }
 }

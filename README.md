@@ -19,3 +19,23 @@ There are two ways to run the application:
 Clicking on the green run button will start the application.
 
 After the application has started, you can view your it at http://localhost:8080/ in your browser.
+
+## Project structure
+
+File structure
+```
+├───frontend
+  └───styles
+├───src.main.java.com.app
+  └───api
+    └───controllers
+    └───entities
+    └───repositories
+  └───components
+  └───pages
+  └───services
+  └───Application.java
+└───src.resources
+  └───application.properties
+```
+

@@ -1,0 +1,27 @@
+.forecast {
+  align-items: center;
+}
+
+.green {
+  color: green;
+}
+.red {
+  color: red;
+}
+.neutral {
+  color: #000f26;
+}
+
+.forecast-title {
+  line-height: 16px;
+}
+
+.levels-chart {
+  max-width: 750px;
+  margin: auto;
+  padding: 15px;
+}
+
+.filters {
+  margin: auto;
+}
