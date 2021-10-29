@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.app.AppNavLayout;
 import com.app.components.MyNotification;
 import com.app.api.controllers.PersonController;
+import com.app.api.entities.Note;
 import com.app.api.entities.Person;
 
 
@@ -55,8 +56,14 @@ public class Home extends AppNavLayout {
     }
 
     private void createPerson () {
-        Person person = new Person("Mick", "Jagger", "mick.jagger@outlook.com", "047645891");
+        List<Note> notes = new ArrayList<>();
+        Note note = new Note("This is a title", "This is a description");
+        notes.add(note);
+
+        Person person = new Person("Mick", "Jagger", "mick.jagger@outlook.com", "047645891", notes);
+
         this.personController.create(person);
+        
         this.setPersons();
         this.grid.setItems(persons);
     }

@@ -1,16 +1,20 @@
 package com.app.api.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.util.Objects;
+import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 
 @Entity // This tells Hibernate to make a table out of this class
@@ -39,14 +43,20 @@ public class Person implements Comparable<Person> {
     @Column(nullable = false)
     private String telephone;
 
+    @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @NotNull(message = "May not be null", groups = CreateValidation.class)
+    @JoinColumn(name = "note_id")
+    private List<Note> notes = new ArrayList<>();
+
     // for deserialisation
     public Person() {}
 
-    public Person(String firstName, String lastName, String email, String telephone) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.telephone= telephone;
+    public Person(String firstName, String lastName, String email, String telephone, List<Note> notes) {
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setEmail(email);
+        this.setTelephone(telephone);
+        this.setNotes(notes);
     }
 
     public Long getId() {
@@ -83,6 +93,14 @@ public class Person implements Comparable<Person> {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public List<Note> getNotes() {
+        return this.notes;
+    }
+
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
     }
 
     @Override
