@@ -34,7 +34,7 @@ public class PersonController {
         return person;
     }
 
-    public Person update (@Validated(Person.CreateValidation.class) Person newPerson) throws EntityNotFoundException {
+    public Person update (@Validated(Person.UpdateValidation.class) Person newPerson) throws EntityNotFoundException {
         Person updatedPerson = repository.findById(newPerson.getId()) //
                 .map(person -> {
                     // update the user properties and save

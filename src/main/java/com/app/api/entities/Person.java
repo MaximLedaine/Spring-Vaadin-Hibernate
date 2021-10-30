@@ -21,6 +21,7 @@ import java.util.Objects;
 @Table(name = "Person")
 public class Person implements Comparable<Person> {
     public interface CreateValidation {}
+    public interface UpdateValidation {}
 
     @Id
     @GeneratedValue
@@ -30,21 +31,21 @@ public class Person implements Comparable<Person> {
     @Column(nullable = false)
     private String firstName;
 
-    @NotEmpty(groups = CreateValidation.class, message = "name may not be empty")
+    @NotEmpty(groups = {CreateValidation.class, UpdateValidation.class}, message = "name may not be empty")
     @Column(nullable = false)
     private String lastName;
 
-    @NotEmpty(groups = CreateValidation.class, message = "email may not be empty")
+    @NotEmpty(groups = {CreateValidation.class, UpdateValidation.class}, message = "email may not be empty")
     @Email(message = "email must have email format")
     @Column(nullable = false)
     private String email;
 
-    @NotEmpty(groups = CreateValidation.class, message = "telephone may not be empty")
+    @NotEmpty(groups = {CreateValidation.class, UpdateValidation.class}, message = "telephone may not be empty")
     @Column(nullable = false)
     private String telephone;
 
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
-    @NotNull(message = "May not be null", groups = CreateValidation.class)
+    @NotNull(message = "May not be null", groups = {CreateValidation.class, UpdateValidation.class})
     @JoinColumn(name = "note_id")
     private List<Note> notes = new ArrayList<>();
 
